@@ -175,6 +175,7 @@ double fpUtil::revisedCondition(double x) {
     char com[100];
     char buf[100];
     snprintf(buf, 50, "%lf", x);
+    printf("%lf\n", x);
     strcpy(com, "");
     strcat(com, "./src/targetCadna ");
     strcat(com, buf);
