@@ -70,7 +70,9 @@ namespace fpUtil {
     double rand01();
 
     // ConditionNumber
-    double revisedCondition(uint64_t opcode, double lhs, double rhs);
+    //double revisedCondition(uint64_t opcode, double lhs, double rhs);
+    // my code
+    double revisedCondition(double x);
     double negInvRevisedCondition(uint64_t opcode, double lhs, double rhs);
     double rawCondition(uint64_t opcode, double lhs, double rhs);
 };

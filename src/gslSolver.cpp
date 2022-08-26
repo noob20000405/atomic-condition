@@ -254,6 +254,8 @@ private:
                 continue;
             y = funcUnderTest->getResult();
 
+            // replaced
+            /*
             std::vector<InstInfo> infoList = funcUnderTest->getInstInfoList();
             for (const auto &info : infoList) {
                 if (instMap.count(info.instID) == 0) {
@@ -264,7 +266,15 @@ private:
 
                 InstructionInfo &curInst = instMap[info.instID];
                 curInst.pushInputFitness(x, fit);
-            }
+            }*/
+            //
+
+            // my code
+            instMap[0] = InstructionInfo();
+            double fit = fpUtil::revisedCondition(x);
+            InstructionInfo &curInst = instMap[0];
+            curInst.pushInputFitness(x, fit);
+            // finished
         }
         std::cout << "\n1. Random Search Done.\n";
     }
@@ -320,6 +330,8 @@ private:
                         continue;
                     y = funcUnderTest->getResult();
 
+                    //replaced
+                    /*
                     std::vector<InstInfo> infoList = funcUnderTest->getInstInfoList();
                     for (const auto &info : infoList) {
                         // We only care about the current instruction.
@@ -329,7 +341,16 @@ private:
                         if (!std::isfinite(newFit))
                             continue;
                         inputList.push_back(InputFitnessPair(newInput, newFit));
-                    }
+                    }*/
+                    //
+
+                    // my code
+                    double newFit = fpUtil::revisedCondition(newInput);
+                    if (!std::isfinite(newFit))
+                        continue;
+                    inputList.push_back(InputFitnessPair(newInput, newFit));
+                    // finished
+
                 }
                 // After each iteration, only reserve the top 100 inputs.
                 std::sort(inputList.begin(), inputList.end(), pairGreater);
@@ -345,7 +366,8 @@ private:
 
     // The results stored in prioritizedInput.
     void _3Prioritize() {
-
+        //replaced
+        
         double x, y;
         int status;
         gsl_sf_result res;
@@ -370,7 +392,7 @@ private:
             bool started = false;
             double logConditionToEnd = 0;
             uint32_t countToEnd = 0;
-            std::vector<InstInfo> infoList = funcUnderTest->getInstInfoList();
+            /*std::vector<InstInfo> infoList = funcUnderTest->getInstInfoList();
             for (const auto &info : infoList) {
                 // we need to find the curInput running to the curInst with the curFit.
                 // Considering a inst maybe executed multiple times.
@@ -397,7 +419,7 @@ private:
             curInst.setTopInputCountToEnd(countToEnd);
             curInst.setTopInputConditionToEnd(logConditionToEnd);
 
-            inputsWithCountToEnd.push_back(InputFitnessPair(curInput, countToEnd));
+            inputsWithCountToEnd.push_back(InputFitnessPair(curInput, countToEnd));*/
 	    io[curInput] = y;
             // std::cout << curInst.getInputsRandomSize() << ' ' << curInst.getInputsEvolutionSize() << '\n';
         }
@@ -411,6 +433,9 @@ private:
 	    std::cout << "Output: " << io[i.input] << '\n';
         }
         std::cout << "End of suspicious input list.\n";
+        
+
+
     }
 
     // The evolution search info.

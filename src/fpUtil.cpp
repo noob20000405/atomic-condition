@@ -1,4 +1,5 @@
 #include "fpUtil.h"
+#include <cstring>
 
 double fpUtil::i64ToDouble(uint64_t i) {
     return *(double*)(&i);
@@ -169,7 +170,26 @@ double fpUtil::rand01()
     return fabs(fpUtil::randDouble()/fpUtil::DBL_POSINF);
 }
 
-double fpUtil::revisedCondition(uint64_t opcode, double lhs, double rhs) {
+// my code
+double fpUtil::revisedCondition(double x) {
+    char com[100];
+    char buf[100];
+    snprintf(buf, 50, "%lf", x);
+    strcpy(com, "");
+    strcat(com, "./src/targetCadna ");
+    strcat(com, buf);
+    system(com);
+
+    strcpy(buf, "");
+    FILE * f = fopen("pipe.txt", "r");
+    fgets(buf, 256, f);
+
+    fclose(f);
+    return strtod(buf, NULL);
+}
+// finished
+
+/*double fpUtil::revisedCondition(uint64_t opcode, double lhs, double rhs) {
     double cond1, cond2;
     double dzdist;
     switch(opcode) {
@@ -226,7 +246,7 @@ double fpUtil::revisedCondition(uint64_t opcode, double lhs, double rhs) {
             return -DBL_MAX;
     }
     return -DBL_MAX;
-}
+}*/
 
 double fpUtil::rawCondition(uint64_t opcode, double lhs, double rhs) {
     double cond1, cond2, dzdist;
@@ -280,6 +300,6 @@ double fpUtil::rawCondition(uint64_t opcode, double lhs, double rhs) {
     return 1;
 }
 
-double fpUtil::negInvRevisedCondition(uint64_t opcode, double lhs, double rhs){
+/*double fpUtil::negInvRevisedCondition(uint64_t opcode, double lhs, double rhs){
     return -1.0/(revisedCondition(opcode,lhs,rhs));
-}
+}*/
