@@ -355,7 +355,16 @@ private:
                 // After each iteration, only reserve the top 100 inputs.
                 std::sort(inputList.begin(), inputList.end(), pairGreater);
                 inputList.resize(curInst.getRecordSize());
+
+
             }
+
+
+                // my code 
+                for (auto i : inputList) {
+                    std::cout << "x = " << i.input << ", fit = " << i.fitness << "\n";
+                }
+
             // After all iterations, store the inputList into curInst.
             curInst.setInputsEvolution(inputList);
 
